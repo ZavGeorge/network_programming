@@ -1,0 +1,30 @@
+- name: Getting data from .csv file
+  hosts: localhost
+  tasks:
+   - name: getting data from .csv
+     community.general.read_csv:
+       path: netbox_devices.csv
+       key: "name"
+     register: routers
+     delegate_to: localhost
+   - name: cheking up
+     debug:
+      msg: 'Router {{ routers.dict }}'
+   - name: creating vars in files
+     copy:
+      dest: '/home/user/{{ item }}.yaml'
+      content: 'name: {{ routers.dict[ item ].name }}'
+     loop:
+      - "Router1"
+      - "Router2"
+
+- name: Setting up new CHR names
+  hosts: servers
+  vars_files:
+   - Router1.yaml
+   - Router2.yaml
+  tasks:
+   - name: changing names
+     community.routeros.command:
+      commands:
+       - /system identity set name={{ name }}

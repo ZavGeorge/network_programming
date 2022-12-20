@@ -1,0 +1,30 @@
+- name: Getting CHR serial number
+  hosts: servers
+  gather_facts: false
+  tasks:
+   - name: getting serial
+     community.routeros.command:
+       commands:
+         - /system license print
+     register: system_resource_print
+   - name: putting data to yaml
+     ansible.builtin.shell: |
+      echo {{ inventory_hostname }}: | tr -d '\n' >> chr_data.yaml
+      echo ' ' | tr -d '\n' >> chr_data.yaml
+      echo -n '{{ system_resource_print }}'| cut -c 39-48 >> chr_data.yaml
+- name: Transferring data to netbox
+  hosts: netbox
+  vars:
+   ansible_python_interpreter: /usr/lib/python3
+  vars_files:
+    - token.yaml
+    - chr_data.yaml
+  tasks:
+    - name: Transferring data to netbox
+      netbox.netbox.netbox_device:
+        netbox_url: http://51.250.87.240
+        netbox_token: '{{ token }}'
+        data:
+          site: itmo
+          name: '{{ inventory_hostname }}'
+          serial: '{{ inventory_hostname }}'

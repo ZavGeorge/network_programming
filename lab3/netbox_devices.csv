@@ -1,0 +1,3 @@
+name,device_role,tenant,manufacturer,device_type,platform,serial,asset_tag,status,site,rack_group,rack_name,position,face,comments
+Router1,router,,Mikrotik,Router OS 7,,,,Active,itmo,,,,,
+Router2,router,,Mikrotik,Router OS 7,,,,Active,itmo,,,,,

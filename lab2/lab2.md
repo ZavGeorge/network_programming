@@ -29,7 +29,7 @@ Date of finished: 21.12.2022</br>
    ![image](https://user-images.githubusercontent.com/60888284/209001844-0f571fdb-a8d7-4747-a801-7c13e21f9976.png)
    ![image](https://user-images.githubusercontent.com/60888284/209001822-7c578fdc-093f-45e0-ab4f-14cb0734ac70.png)
 
-   4. Была проверена IP-связанность между сервером и CHR 
+   4. Была проверена IP-связаность между сервером и CHR 
    
    ### Настройка CHR-машин с помощью Ansible
    
